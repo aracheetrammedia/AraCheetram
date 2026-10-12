@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>அறச்சீற்றம் — டிஜிட்டல் இதழ் | Ara Cheetram E-Magazine</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Font: Noto Sans Tamil & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              green: '#00a859',
+              darkgreen: '#064e2b',
+              accent: '#e63946',
+              dark: '#111111',
+              cardBg: '#ffffff',
+              bgLight: '#f8f9fa'
+            }
+          },
+          fontFamily: {
+            tamil: ['"Noto Sans Tamil"', 'Segoe UI', 'system-ui', 'sans-serif'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #00a859;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #064e2b;
+    }
+
+    /* Sub Tabs Dropdown Hover Logic for Desktop */
+    @media (min-width: 1024px) {
+      .nav-item:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+    }
+    .dropdown-menu {
+      transition: all 0.25s ease-in-out;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+    }
+
+    /* Smooth Modal Transitions */
+    .modal-backdrop {
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+    }
+  </style>
+</head>
+<body class="bg-brand-bgLight text-brand-dark font-tamil min-h-screen flex flex-col justify-between antialiased selection:bg-brand-green selection:text-white">
+
+  <!-- TOP SOCIAL & ANNOUNCEMENT BAR -->
+  <div class="bg-brand-dark text-white text-xs sm:text-sm py-2 px-4 md:px-8 border-b border-gray-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2 text-gray-300 font-medium">
+        <span class="bg-brand-green text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">குறள்</span>
+        <span class="truncate">"அரசியல் பிழைத்தோர்க்கு அறமே கூற்றாகும்..."</span>
+      </div>
+      <div class="flex items-center gap-4 text-gray-300">
+        <span class="hidden md:inline-block text-gray-400 text-xs">பின்தொடர:</span>
+        <a href="https://www.facebook.com/aracheetram.media" target="_blank" rel="noopener" class="hover:text-brand-green transition-colors" title="Facebook"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+        <a href="https://www.youtube.com/@AraCheetram.Journal" target="_blank" rel="noopener" class="hover:text-brand-green transition-colors" title="YouTube"><i class="fa-brands fa-youtube text-sm"></i></a>
+        <a href="https://wa.me/919629188853" target="_blank" rel="noopener" class="hover:text-brand-green transition-colors" title="WhatsApp"><i class="fa-brands fa-whatsapp text-sm"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN HEADER -->
+  <header class="bg-white shadow-sm border-b-4 border-brand-green sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2">
+      
+      <!-- LOGO AREA -->
+      <div class="flex flex-col items-center justify-center text-center py-2">
+        <a href="#" onclick="showSection('all'); return false;" class="group inline-block focus:outline-none">
+          <img 
+            src="Ara_Cheetram.jpg" 
+            alt="அறச்சீற்றம் - இதழ் சின்னம்" 
+            class="h-16 sm:h-20 md:h-24 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+            onerror="this.onerror=null; this.parentNode.innerHTML='<h1 class=\'text-3xl sm:text-5xl font-black tracking-tight text-brand-dark flex items-center gap-2\'><span class=\'text-brand-green\'>அற</span>சீற்றம்</h1><p class=\'text-xs sm:text-sm text-gray-500 font-semibold tracking-widest uppercase mt-1\'>சுதந்திர தமிழ் டிஜிட்டல் இதழ்</p>';"
+          >
+        </a>
+      </div>
+
+      <!-- NAVIGATION BAR -->
+      <div class="mt-3 border-t border-gray-100 pt-2">
+        <div class="flex items-center justify-between lg:justify-center">
+          
+          <!-- Mobile Menu Toggle Button -->
+          <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gray-700 hover:text-brand-green focus:outline-none" aria-label="Toggle Navigation">
+            <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
+          </button>
+
+          <!-- Search Trigger Toggle for Mobile -->
+          <div class="lg:hidden text-brand-dark">
+            <button onclick="toggleSearchBar()" class="p-2 text-gray-600 hover:text-brand-green">
+              <i class="fa-solid fa-magnifying-glass text-lg"></i>
+            </button>
+          </div>
+
+          <!-- DESKTOP NAVIGATION -->
+          <nav id="desktopNav" class="hidden lg:flex items-center justify-center flex-wrap gap-1 xl:gap-2">
+            
+            <!-- 1. முகப்பு (Home) -->
+            <div class="nav-item relative">
+              <a href="#" onclick="showSection('all'); return false;" class="px-3 py-2.5 text-sm font-bold text-gray-800 hover:text-brand-green rounded-md transition-colors flex items-center gap-1">
+                <i class="fa-solid fa-house text-xs opacity-70"></i> முகப்பு
+              </a>
+            </div>
+
+            <!-- 2. எங்களைப் பற்றி (About Us) -->
+            <div class="nav-item relative group">
+              <a href="#" onclick="openAboutModal(); return false;" class="px-3 py-2.5 text-sm font-bold text-gray-800 hover:text-brand-green rounded-md transition-colors flex items-center gap-1.5">
+                எங்களைப் பற்றி <i class="fa-solid fa-chevron-down text-[10px] text-gray-400 group-hover:text-brand-green"></i>
+              </a>
+              <div class="dropdown-menu absolute left-0 top-full bg-white shadow-xl rounded-md border-t-2 border-brand-green min-w-[210px] py-2 z-50">
+                <a href="#" onclick="openAboutTab('vision'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green border-b border-gray-50">
+                  <i class="fa-solid fa-bullseye text-brand-green mr-2"></i>எங்கள் நோக்கம்
+                </a>
+                <a href="#" onclick="openAboutTab('editorial'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green border-b border-gray-50">
+                  <i class="fa-solid fa-feather text-brand-green mr-2"></i>ஆசிரியர் உரை
+                </a>
+                <a href="#" onclick="openAboutTab('history'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green">
+                  <i class="fa-solid fa-timeline text-brand-green mr-2"></i>வரலாற்றுப் பதிவு
+                </a>
+              </div>
+            </div>
+
+            <!-- 3. அரசியல் (Politics) -->
+            <div class="nav-item relative group">
+              <a href="#" onclick="filterCategory('அரசியல்'); return false;" class="px-3 py-2.5 text-sm font-bold text-gray-800 hover:text-brand-green rounded-md transition-colors flex items-center gap-1.5">
+                அரசியல் <i class="fa-solid fa-chevron-down text-[10px] text-gray-400 group-hover:text-brand-green"></i>
+              </a>
+              <div class="dropdown-menu absolute left-0 top-full bg-white shadow-xl rounded-md border-t-2 border-brand-green min-w-[200px] py-2 z-50">
+                <a href="#" onclick="filterSubCategory('தேர்தல் களங்கள்'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green border-b border-gray-50">தேர்தல் களங்கள்</a>
+                <a href="#" onclick="filterSubCategory('கொள்கை அலசல்'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green border-b border-gray-50">கொள்கை அலசல்</a>
+                <a href="#" onclick="filterSubCategory('சட்டமன்ற விவாதங்கள்'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green">சட்டமன்ற விவாதங்கள்</a>
+              </div>
+            </div>
+
+            <!-- 4. சமூகம் (Society) -->
+            <div class="nav-item relative group">
+              <a href="#" onclick="filterCategory('சமூகம்'); return false;" class="px-3 py-2.5 text-sm font-bold text-gray-800 hover:text-brand-green rounded-md transition-colors flex items-center gap-1.5">
+                சமூகம் <i class="fa-solid fa-chevron-down text-[10px] text-gray-400 group-hover:text-brand-green"></i>
+              </a>
+              <div class="dropdown-menu absolute left-0 top-full bg-white shadow-xl rounded-md border-t-2 border-brand-green min-w-[200px] py-2 z-50">
+                <a href="#" onclick="filterSubCategory('மக்கள் குரல்'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green border-b border-gray-50">மக்கள் குரல்</a>
+                <a href="#" onclick="filterSubCategory('விழிப்புணர்வு'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green border-b border-gray-50">விழிப்புணர்வு</a>
+                <a href="#" onclick="filterSubCategory('ஆய்வுக் கட்டுரைகள்'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green">ஆய்வுக் கட்டுரைகள்</a>
+              </div>
+            </div>
+
+            <!-- 5. கலாச்சாரம் (Culture) -->
+            <div class="nav-item relative group">
+              <a href="#" onclick="filterCategory('கலாச்சாரம்'); return false;" class="px-3 py-2.5 text-sm font-bold text-gray-800 hover:text-brand-green rounded-md transition-colors flex items-center gap-1.5">
+                கலாச்சாரம் <i class="fa-solid fa-chevron-down text-[10px] text-gray-400 group-hover:text-brand-green"></i>
+              </a>
+              <div class="dropdown-menu absolute left-0 top-full bg-white shadow-xl rounded-md border-t-2 border-brand-green min-w-[200px] py-2 z-50">
+                <a href="#" onclick="filterSubCategory('இலக்கியம்'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green border-b border-gray-50">இலக்கியம்</a>
+                <a href="#" onclick="filterSubCategory('கலை & பண்பாடு'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green border-b border-gray-50">கலை & பண்பாடு</a>
+                <a href="#" onclick="filterSubCategory('வரலாற்றுப் பதிவுகள்'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green">வரலாற்றுப் பதிவுகள்</a>
+              </div>
+            </div>
+
+            <!-- 6. கருத்துக்களம் (Opinion/Forum) -->
+            <div class="nav-item relative">
+              <a href="#" onclick="filterCategory('கருத்துக்களம்'); return false;" class="px-3 py-2.5 text-sm font-bold text-gray-800 hover:text-brand-green rounded-md transition-colors">
+                கருத்துக்களம்
+              </a>
+            </div>
+
+            <!-- 7. தொடர்புக்கு (Contact Us) -->
+            <div class="nav-item relative group">
+              <a href="#" onclick="openContactModal(); return false;" class="px-3 py-2.5 text-sm font-bold text-gray-800 hover:text-brand-green rounded-md transition-colors flex items-center gap-1.5">
+                தொடர்புக்கு <i class="fa-solid fa-chevron-down text-[10px] text-gray-400 group-hover:text-brand-green"></i>
+              </a>
+              <div class="dropdown-menu absolute left-0 top-full bg-white shadow-xl rounded-md border-t-2 border-brand-green min-w-[220px] py-2 z-50">
+                <a href="#" onclick="openContactSub('editorial'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green border-b border-gray-50">ஆசிரியர் குழு</a>
+                <a href="#" onclick="openContactSub('press'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green border-b border-gray-50">பத்திரிகை பதிவு</a>
+                <a href="#" onclick="openContactSub('info'); return false;" class="block px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brand-green">வாட்ஸ்அப் உதவி</a>
+              </div>
+            </div>
+
+            <!-- 8. செய்தியாளராக (Become a Reporter - NEW TAB) -->
+            <div class="nav-item relative">
+              <a href="#" onclick="openReporterModal(); return false;" class="px-3 py-2.5 text-sm font-extrabold text-brand-darkgreen bg-emerald-50 hover:bg-brand-green hover:text-white rounded-md transition-all flex items-center gap-1.5 border border-emerald-200">
+                <i class="fa-solid fa-id-card text-xs"></i> செய்தியாளராக
+              </a>
+            </div>
+
+            <!-- 9. சந்தா (Subscribe) Button -->
+            <div class="ml-2">
+              <a href="#" onclick="openSubscribeModal(); return false;" class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-extrabold text-white bg-brand-accent hover:bg-red-700 rounded-full shadow transition-transform transform active:scale-95 uppercase tracking-wide">
+                <i class="fa-solid fa-paper-plane"></i> சந்தா
+              </a>
+            </div>
+
+          </nav>
+        </div>
+
+        <!-- MOBILE NAVIGATION DRAWER -->
+        <div id="mobileMenu" class="hidden lg:hidden mt-3 bg-white border-t border-gray-100 py-3 px-2 rounded-b-lg shadow-lg">
+          <div class="space-y-1">
+            <a href="#" onclick="showSection('all'); toggleMobileMenu(); return false;" class="block px-3 py-2 rounded text-sm font-bold text-gray-800 hover:bg-emerald-50 hover:text-brand-green">முகப்பு</a>
+
+            <!-- Mobile Sub-Menu: About Us -->
+            <div class="border-t border-gray-100 pt-1">
+              <div class="px-3 py-1 text-xs font-black text-brand-green uppercase tracking-wider">எங்களைப் பற்றி</div>
+              <a href="#" onclick="openAboutTab('vision'); toggleMobileMenu(); return false;" class="block px-6 py-1.5 text-xs font-medium text-gray-700 hover:text-brand-green">எங்கள் நோக்கம்</a>
+              <a href="#" onclick="openAboutTab('editorial'); toggleMobileMenu(); return false;" class="block px-6 py-1.5 text-xs font-medium text-gray-700 hover:text-brand-green">ஆசிரியர் உரை</a>
+              <a href="#" onclick="openAboutTab('history'); toggleMobileMenu(); return false;" class="block px-6 py-1.5 text-xs font-medium text-gray-700 hover:text-brand-green">வரலாற்றுப் பதிவு</a>
+            </div>
+
+            <!-- Mobile Sub-Menu: Politics -->
+            <div class="border-t border-gray-100 pt-1">
+              <div class="px-3 py-1 text-xs font-black text-brand-green uppercase tracking-wider">அரசியல்</div>
+              <a href="#" onclick="filterSubCategory('தேர்தல் களங்கள்'); toggleMobileMenu(); return false;" class="block px-6 py-1.5 text-xs font-medium text-gray-700 hover:text-brand-green">தேர்தல் களங்கள்</a>
+              <a href="#" onclick="filterSubCategory('கொள்கை அலசல்'); toggleMobileMenu(); return false;" class="block px-6 py-1.5 text-xs font-medium text-gray-700 hover:text-brand-green">கொள்கை அலசல்</a>
+              <a href="#" onclick="filterSubCategory('சட்டமன்ற விவாதங்கள்'); toggleMobileMenu(); return false;" class="block px-6 py-1.5 text-xs font-medium text-gray-700 hover:text-brand-green">சட்டமன்ற விவாதங்கள்</a>
+            </div>
+
+            <!-- Mobile Sub-Menu: Society -->
+            <div class="border-t border-gray-100 pt-1">
+              <div class="px-3 py-1 text-xs font-black text-brand-green uppercase tracking-wider">சமூகம்</div>
+              <a href="#" onclick="filterSubCategory('மக்கள் குரல்'); toggleMobileMenu(); return false;" class="block px-6 py-1.5 text-xs font-medium text-gray-700 hover:text-brand-green">மக்கள் குரல்</a>
+              <a href="#" onclick="filterSubCategory('விழிப்புணர்வு'); toggleMobileMenu(); return false;" class="block px-6 py-1.5 text-xs font-medium text-gray-700 hover:text-brand-green">விழிப்புணர்வு</a>
+              <a href="#" onclick="filterSubCategory('ஆய்வுக் கட்டுரைகள்'); toggleMobileMenu(); return false;" class="block px-6 py-1.5 text-xs font-medium text-gray-700 hover:text-brand-green">ஆய்வுக் கட்டுரைகள்</a>
+            </div>
+
+            <!-- Mobile Sub-Menu: Culture -->
+            <div class="border-t border-gray-100 pt-1">
+              <div class="px-3 py-1 text-xs font-black text-brand-green uppercase tracking-wider">கலாச்சாரம்</div>
+              <a href="#" onclick="filterSubCategory('இலக்கியம்'); toggleMobileMenu(); return false;" class="block px-6 py-1.5 text-xs font-medium text-gray-700 hover:text-brand-green">இலக்கியம்</a>
+              <a href="#" onclick="filterSubCategory('கலை & பண்பாடு'); toggleMobileMenu(); return false;" class="block px-6 py-1.5 text-xs font-medium text-gray-700 hover:text-brand-green">கலை & பண்பாடு</a>
+              <a href="#" onclick="filterSubCategory('வரலாற்றுப் பதிவுகள்'); toggleMobileMenu(); return false;" class="block px-6 py-1.5 text-xs font-medium text-gray-700 hover:text-brand-green">வரலாற்றுப் பதிவுகள்</a>
+            </div>
+
+            <!-- Mobile Links: Forum, Contact & Become Reporter -->
+            <div class="border-t border-gray-100 pt-2 space-y-1">
+              <a href="#" onclick="filterCategory('கருத்துக்களம்'); toggleMobileMenu(); return false;" class="block px-3 py-1.5 rounded text-sm font-bold text-gray-800 hover:bg-emerald-50 hover:text-brand-green">கருத்துக்களம்</a>
+              <a href="#" onclick="openContactModal(); toggleMobileMenu(); return false;" class="block px-3 py-1.5 rounded text-sm font-bold text-gray-800 hover:bg-emerald-50 hover:text-brand-green">தொடர்புக்கு</a>
+              <a href="#" onclick="openReporterModal(); toggleMobileMenu(); return false;" class="block px-3 py-2 rounded text-sm font-extrabold text-brand-green bg-emerald-50 hover:bg-brand-green hover:text-white transition-colors">
+                <i class="fa-solid fa-id-card mr-1"></i> செய்தியாளராக
+              </a>
+            </div>
+
+            <div class="pt-2">
+              <a href="#" onclick="openSubscribeModal(); toggleMobileMenu(); return false;" class="block text-center py-2 px-4 text-xs font-bold text-white bg-brand-accent rounded-md shadow">
+                சந்தா சேர
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- CATEGORY FILTER & SEARCH BAR SECTION -->
+  <section class="bg-emerald-90/40 border-b border-gray-200 py-3 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+      
+      <!-- Quick Filter Pills -->
+      <div id="filterPills" class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 text-xs no-scrollbar">
+        <span class="text-gray-500 font-bold whitespace-nowrap hidden sm:inline"><i class="fa-solid fa-filter text-brand-green mr-1"></i> பிரிவுகள்:</span>
+        <button onclick="filterCategory('all')" class="filter-btn active bg-brand-green text-white px-3 py-1 rounded-full font-semibold transition-all whitespace-nowrap">அனைத்தும்</button>
+        <button onclick="filterCategory('அரசியல்')" class="filter-btn bg-white border border-gray-300 text-gray-700 hover:border-brand-green px-3 py-1 rounded-full font-semibold transition-all whitespace-nowrap">அரசியல்</button>
+        <button onclick="filterCategory('சமூகம்')" class="filter-btn bg-white border border-gray-300 text-gray-700 hover:border-brand-green px-3 py-1 rounded-full font-semibold transition-all whitespace-nowrap">சமூகம்</button>
+        <button onclick="filterCategory('கலாச்சாரம்')" class="filter-btn bg-white border border-gray-300 text-gray-700 hover:border-brand-green px-3 py-1 rounded-full font-semibold transition-all whitespace-nowrap">கலாச்சாரம்</button>
+        <button onclick="filterCategory('கருத்துக்களம்')" class="filter-btn bg-white border border-gray-300 text-gray-700 hover:border-brand-green px-3 py-1 rounded-full font-semibold transition-all whitespace-nowrap">கருத்துக்களம்</button>
+      </div>
+
+      <!-- Realtime Search Input Box -->
+      <div class="relative w-full md:w-72">
+        <input 
+          type="text" 
+          id="searchInput" 
+          onkeyup="searchArticles()" 
+          placeholder="பதிவுகளைத் தேடுக..." 
+          class="w-full text-xs pl-8 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent bg-white shadow-sm"
+        >
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400 text-xs"></i>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
+
+    <!-- Active Filter Title Indicator -->
+    <div id="activeFilterHeading" class="mb-6 flex items-center justify-between border-b border-gray-200 pb-3">
+      <h2 id="currentCategoryTitle" class="text-xl sm:text-2xl font-black text-brand-dark flex items-center gap-2">
+        <span class="w-2 h-6 bg-brand-green rounded-full inline-block"></span>
+        முதன்மை செய்தி & சமீபத்திய பதிவுகள்
+      </h2>
+      <span id="articleCountBadge" class="text-xs bg-emerald-100 text-brand-darkgreen font-bold px-2.5 py-1 rounded-full">
+        8 பதிவுகள்
+      </span>
+    </div>
+
+    <!-- HERO COVER STORY SECTION -->
+    <section id="heroSection" class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden mb-12 transition-all hover:shadow-lg">
+      <div class="grid grid-cols-1 lg:grid-cols-12">
+        
+        <!-- Hero Image -->
+        <div class="lg:col-span-7 relative group overflow-hidden min-h-[280px] sm:min-h-[380px]">
+          <img 
+            src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80" 
+            alt="Hero Story Image" 
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            onerror="this.src='https://placehold.co/800x500/00a859/ffffff?text=Ara+Cheetram+Cover';"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          <span class="absolute top-4 left-4 bg-brand-accent text-white text-xs font-black uppercase tracking-wider px-3 py-1 rounded-md shadow">
+            சிறப்புப் பார்வை
+          </span>
+        </div>
+
+        <!-- Hero Text Details -->
+        <div class="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between bg-white">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-semibold text-brand-green mb-2">
+              <span>சமூகம்</span>
+              <span>•</span>
+              <span>ஆய்வுக் கட்டுரைகள்</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-black text-brand-dark leading-snug mb-4 hover:text-brand-green cursor-pointer transition-colors" onclick="openArticleModal(1)">
+              சமூக மாற்றத்தில் எழும் அறச்சீற்றம்: ஒரு விரிவான ஆய்வு
+            </h1>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+              சமூகத்தின் நீதிக்காகவும் உரிமைகளுக்காகவும் எழும் குரல்கள் எவ்வாறு புதிய வரலாற்று மாற்றங்களை உருவாக்குகின்றன? சமகால அரசியல் மற்றும் மக்களின் பங்களிப்பைப் பற்றிய ஆழமான அலசல்.
+            </p>
+          </div>
+
+          <div class="border-t border-gray-100 pt-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-emerald-100 text-brand-green font-bold flex items-center justify-center text-sm">
+                ஆ
+              </div>
+              <div>
+                <p class="text-xs font-bold text-gray-800">ஆசிரியர் குழு</p>
+                <p class="text-[11px] text-gray-500">அக்டோபர் 2026 • 6 நிமிடம் வாசிப்பு</p>
+              </div>
+            </div>
+            <button onclick="openArticleModal(1)" class="text-xs font-bold text-brand-green hover:text-brand-darkgreen flex items-center gap-1 group">
+              முழுமையாக படிக்க <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ARTICLES GRID CONTAINER -->
+    <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <!-- Article cards populated dynamically by JavaScript -->
+    </div>
+
+    <!-- Empty State Message -->
+    <div id="noResults" class="hidden text-center py-16 bg-white rounded-2xl shadow-sm border border-gray-100 my-6">
+      <i class="fa-solid fa-newspaper text-4xl text-gray-300 mb-3"></i>
+      <h3 class="text-lg font-bold text-gray-700">பதிவுகள் எதுவும் கிடைக்கவில்லை!</h3>
+      <p class="text-xs text-gray-500 mt-1">வேறொரு தலைப்பு அல்லது தேடலை முயற்சித்துப் பார்க்கவும்.</p>
+      <button onclick="showSection('all')" class="mt-4 px-4 py-2 bg-brand-green text-white text-xs font-bold rounded-lg shadow hover:bg-emerald-700">
+        அனைத்துப் பதிவுகளையும் காட்டு
+      </button>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-brand-dark text-white border-t-4 border-brand-green mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <!-- Col 1: About Magazine -->
+        <div class="md:col-span-2">
+          <h3 class="text-2xl font-black text-white mb-3 flex items-center gap-2">
+            <span class="text-brand-green">அற</span>சீற்றம்
+          </h3>
+          <p class="text-xs text-gray-400 leading-relaxed max-w-md mb-4">
+            சுதந்திரமான, நேர்மையான மற்றும் மக்கள் நலன் சார்ந்த கருத்துக்களுக்கான டிஜிட்டல் தமிழ் இதழ். அரசியல், சமூகம், பண்பாடு மற்றும் கலை சார்ந்த ஆய்வுக் கட்டுரைகளின் முன்னணி தளம்.
+          </p>
+          <div class="flex items-center gap-3">
+            <a href="https://www.facebook.com/aracheetram.media" target="_blank" class="w-9 h-9 rounded-full bg-gray-800 hover:bg-brand-green flex items-center justify-center text-gray-300 hover:text-white transition-colors" title="Facebook"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+            <a href="https://www.youtube.com/@AraCheetram.Journal" target="_blank" class="w-9 h-9 rounded-full bg-gray-800 hover:bg-brand-green flex items-center justify-center text-gray-300 hover:text-white transition-colors" title="YouTube"><i class="fa-brands fa-youtube text-sm"></i></a>
+            <a href="https://wa.me/919629188853" target="_blank" class="w-9 h-9 rounded-full bg-gray-800 hover:bg-brand-green flex items-center justify-center text-gray-300 hover:text-white transition-colors" title="WhatsApp"><i class="fa-brands fa-whatsapp text-sm"></i></a>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div>
+          <h4 class="text-xs font-extrabold uppercase tracking-widest text-brand-green mb-4">முக்கிய பிரிவுகள்</h4>
+          <ul class="space-y-2 text-xs text-gray-300">
+            <li><a href="#" onclick="openAboutModal(); return false;" class="hover:text-brand-green transition-colors">எங்களைப் பற்றி (About Us)</a></li>
+            <li><a href="#" onclick="filterCategory('அரசியல்'); return false;" class="hover:text-brand-green transition-colors">அரசியல் கட்டுரைகள்</a></li>
+            <li><a href="#" onclick="filterCategory('சமூகம்'); return false;" class="hover:text-brand-green transition-colors">சமூக ஆய்வுகள்</a></li>
+            <li><a href="#" onclick="openReporterModal(); return false;" class="hover:text-brand-green transition-colors">செய்தியாளராக இணைய</a></li>
+            <li><a href="#" onclick="openSubscribeModal(); return false;" class="hover:text-brand-green transition-colors">மாதாந்திர சந்தா</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Contact Info -->
+        <div>
+          <h4 class="text-xs font-extrabold uppercase tracking-widest text-brand-green mb-4">தொடர்பு விவரங்கள்</h4>
+          <div class="space-y-2.5 text-xs text-gray-300">
+            <p class="flex items-center gap-2">
+              <i class="fa-solid fa-phone text-brand-green"></i>
+              <a href="https://wa.me/919629188853" target="_blank" class="hover:underline">+91 96291 88853</a>
+            </p>
+            <p class="flex items-center gap-2">
+              <i class="fa-solid fa-envelope text-brand-green"></i>
+              <span>editor@aracheetram.com</span>
+            </p>
+            <p class="flex items-start gap-2">
+              <i class="fa-solid fa-location-dot text-brand-green mt-0.5"></i>
+              <span>சென்னை & உலகளாவிய தமிழ் டிஜிட்டல் மையம்</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-2">
+        <p>&copy; 2026 அறச்சீற்றம் டிஜிட்டல் இதழ். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
+        <p class="text-gray-400">உண்மையின் பக்கம் • அறத்தின் குரல்</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 1. ABOUT US MODAL (எங்களைப் பற்றி) -->
+  <div id="aboutModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-100">
+      
+      <!-- Modal Header -->
+      <div class="bg-brand-dark text-white p-6 sticky top-0 flex items-center justify-between border-b-4 border-brand-green">
+        <div>
+          <span class="text-xs font-extrabold text-brand-green uppercase tracking-wider">அறச்சீற்றம் டிஜிட்டல் இதழ்</span>
+          <h3 class="text-xl font-bold">எங்களைப் பற்றி (About Us)</h3>
+        </div>
+        <button onclick="closeAboutModal()" class="text-gray-400 hover:text-white text-xl p-1 focus:outline-none">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- About Sub-Tabs Bar inside Modal -->
+      <div class="bg-emerald-50 border-b border-emerald-100 px-6 py-2 flex gap-4 text-xs font-bold">
+        <button id="aboutTab-vision" onclick="switchAboutInnerTab('vision')" class="about-inner-tab py-1.5 border-b-2 border-brand-green text-brand-green">எங்கள் நோக்கம்</button>
+        <button id="aboutTab-editorial" onclick="switchAboutInnerTab('editorial')" class="about-inner-tab py-1.5 border-b-2 border-transparent text-gray-600 hover:text-brand-green">ஆசிரியர் உரை</button>
+        <button id="aboutTab-history" onclick="switchAboutInnerTab('history')" class="about-inner-tab py-1.5 border-b-2 border-transparent text-gray-600 hover:text-brand-green">வரலாற்றுப் பதிவு</button>
+      </div>
+
+      <!-- Modal Body Content -->
+      <div class="p-6 text-sm text-gray-700 space-y-4 leading-relaxed">
+        
+        <!-- Content 1: Vision -->
+        <div id="aboutContent-vision" class="about-content-panel">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-emerald-100 text-brand-green flex items-center justify-center text-lg font-bold">
+              <i class="fa-solid fa-bullseye"></i>
+            </div>
+            <h4 class="text-base font-bold text-brand-dark">எங்கள் நோக்கம் & கொள்கை</h4>
+          </div>
+          <p>
+            <strong>அறச்சீற்றம்</strong> இதழ் சமூகத்தில் எழும் அநீதிகளுக்கு எதிரான குரலாகவும், நேர்மையான ஊடகவியலின் அடையாளமாகவும் செயல்படுகிறது.
+          </p>
+          <ul class="list-disc list-inside space-y-1.5 text-xs text-gray-600 pl-2">
+            <li>எந்தவொரு அரசியல் சார்புமின்றி நடுநிலையான கட்டுரைகளை வழங்குவது.</li>
+            <li>மக்களின் அன்றாடப் பிரச்சினைகள் மற்றும் கொள்கை முடிவுகளை ஆழமாக அலசுவது.</li>
+            <li>தமிழ் மொழி, வரலாறு, இலக்கியம் மற்றும் கலைப்பண்பாட்டை உலகெங்கும் வாழும் தமிழர்களிடம் கொண்டு சேர்ப்பது.</li>
+          </ul>
+        </div>
+
+        <!-- Content 2: Editorial -->
+        <div id="aboutContent-editorial" class="about-content-panel hidden">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-emerald-100 text-brand-green flex items-center justify-center text-lg font-bold">
+              <i class="fa-solid fa-feather"></i>
+            </div>
+            <h4 class="text-base font-bold text-brand-dark">ஆசிரியர் குழுவின் செய்தி</h4>
+          </div>
+          <blockquote class="italic border-l-4 border-brand-green pl-4 py-1 bg-emerald-50 text-gray-800 text-xs my-2">
+            "அரசியல் பிழைத்தோர்க்கு அறமே கூற்றாகும் எனும் சிலப்பதிகார வரிகளின் வழியில், அதிகாரத்திற்கு உண்மையை உரக்கச் சொல்வதே எங்களின் முதன்மையான பணி."
+          </blockquote>
+          <p class="text-xs">
+            டிஜிட்டல் ஊடகங்கள் பெருகிவிட்ட இந்த காலத்தில், தகவல்களின் உண்மைத்தன்மையை ஆராய்ந்து வாசகர்களுக்கு வழங்குவதே அறசீற்றத்தின் முதன்மை கடமையாகும்.
+          </p>
+        </div>
+
+        <!-- Content 3: History -->
+        <div id="aboutContent-history" class="about-content-panel hidden">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-emerald-100 text-brand-green flex items-center justify-center text-lg font-bold">
+              <i class="fa-solid fa-timeline"></i>
+            </div>
+            <h4 class="text-base font-bold text-brand-dark">எங்கள் பயணத்தின் வரலாறு</h4>
+          </div>
+          <p class="text-xs">
+            2026 ஆம் ஆண்டு தொடங்கப்பட்ட அறச்சீற்றம் டிஜிட்டல் இதழ், குறுகிய காலத்தில் பல்லாயிரக்கணக்கான வாசகர்களின் நம்பிக்கையைப் பெற்றுள்ளது. டிஜிட்டல் தளங்கள், சமூக வலைதளங்கள் மற்றும் வாட்ஸ்அப் சப்ஸ்கிரிப்ஷன் மூலமாகத் தமிழ் மக்களின் விருப்பத்திற்குரிய இதழாகத் திகழ்கிறது.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-gray-50 px-6 py-4 flex justify-end">
+        <button onclick="closeAboutModal()" class="px-5 py-2 bg-brand-green text-white text-xs font-bold rounded-lg hover:bg-emerald-700 shadow">
+          மூடுக
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. CONTACT MODAL (தொடர்புக்கு) -->
+  <div id="contactModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-gray-100">
+      <div class="bg-brand-dark text-white p-6 border-b-4 border-brand-green flex justify-between items-center">
+        <div>
+          <h3 class="text-lg font-bold">தொடர்புகொள்ள (Contact Us)</h3>
+          <p class="text-xs text-gray-400">உங்களின் கேள்விகள் மற்றும் கருத்துக்களை அனுப்பவும்</p>
+        </div>
+        <button onclick="closeContactModal()" class="text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form onsubmit="handleFormSubmit(event, 'தொடர்பு செய்தி வெற்றிகரமாக அனுப்பப்பட்டது!')" class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">உங்கள் பெயர்</label>
+          <input type="text" required class="w-full text-xs p-2.5 border rounded-lg focus:ring-2 focus:ring-brand-green outline-none" placeholder="உங்கள் முழு பெயர்">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">மின்னஞ்சல் முகவரி</label>
+          <input type="email" required class="w-full text-xs p-2.5 border rounded-lg focus:ring-2 focus:ring-brand-green outline-none" placeholder="example@mail.com">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">செய்தி / கருத்து</label>
+          <textarea rows="4" required class="w-full text-xs p-2.5 border rounded-lg focus:ring-2 focus:ring-brand-green outline-none" placeholder="உங்கள் செய்தியை இங்கு எழுதவும்..."></textarea>
+        </div>
+        <button type="submit" class="w-full py-2.5 bg-brand-green text-white text-xs font-bold rounded-lg hover:bg-emerald-700 shadow">
+          செய்தி அனுப்புக
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. SUBSCRIBE MODAL (சந்தா) -->
+  <div id="subscribeModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-100">
+      <div class="bg-brand-accent text-white p-6 flex justify-between items-center">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest font-bold text-red-200">டிஜிட்டல் சந்தா</span>
+          <h3 class="text-xl font-extrabold">அறச்சீற்றம் இதழ் சந்தா</h3>
+        </div>
+        <button onclick="closeSubscribeModal()" class="text-white hover:text-gray-200 text-xl"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form onsubmit="handleFormSubmit(event, 'சந்தா படிவம் வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது!')" class="p-6 space-y-4">
+        <p class="text-xs text-gray-600">
+          அறச்சீற்றம் வாராந்திர டிஜிட்டல் இதழை உங்களின் வாட்ஸ்அப் அல்லது மின்னஞ்சலில் நேரடியாகப் பெற கீழே விவரங்களைப் பதிவு செய்யவும்.
+        </p>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">பெயர்</label>
+          <input type="text" required class="w-full text-xs p-2.5 border rounded-lg focus:ring-2 focus:ring-brand-accent outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">வாட்ஸ்அப் எண்</label>
+          <input type="tel" required placeholder="+91 96291 88853" class="w-full text-xs p-2.5 border rounded-lg focus:ring-2 focus:ring-brand-accent outline-none">
+        </div>
+        <button type="submit" class="w-full py-2.5 bg-brand-accent text-white text-xs font-bold rounded-lg hover:bg-red-700 shadow">
+          உடனடி சந்தா சேர்க
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. REPORTER APPLICATION MODAL (செய்தியாளராக - NEW) -->
+  <div id="reporterModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[92vh] overflow-y-auto border border-gray-100">
+      
+      <!-- Modal Header -->
+      <div class="bg-brand-dark text-white p-5 sm:p-6 sticky top-0 flex items-center justify-between border-b-4 border-brand-green z-10">
+        <div>
+          <span class="text-xs font-extrabold text-brand-green uppercase tracking-wider"><i class="fa-solid fa-bullhorn mr-1"></i> மக்கள் குரல் - செய்திப் பிரிவு</span>
+          <h3 class="text-lg sm:text-2xl font-black">செய்தியாளராக இணையுங்கள் (Journalist Application)</h3>
+        </div>
+        <button onclick="closeReporterModal()" class="text-gray-400 hover:text-white text-2xl p-1 focus:outline-none">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-5 sm:p-8 space-y-8">
+
+        <!-- Guidelines & Benefits Card Grid -->
+        <div>
+          <h4 class="text-sm font-black text-brand-dark uppercase tracking-wider mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-brand-green text-base"></i>
+            செய்தியாளர் விதிமுறைகள் & நன்மைகள் (Guidelines & Benefits)
+          </h4>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            
+            <div class="bg-emerald-50/70 border border-emerald-100 rounded-xl p-4 flex flex-col justify-between">
+              <div>
+                <div class="w-8 h-8 rounded-lg bg-brand-green text-white font-bold flex items-center justify-center mb-2">
+                  <i class="fa-solid fa-scale-balanced"></i>
+                </div>
+                <h5 class="font-bold text-gray-900 mb-1">சுதந்திரமான ஊடகவியல்</h5>
+                <p class="text-gray-600 leading-relaxed">அரசியல் சார்பின்றி, நேர்மையான மற்றும் அறம் சார்ந்த செய்திகளைச் சுதந்திரமாகப் பதிவு செய்யும் களம்.</p>
+              </div>
+            </div>
+
+            <div class="bg-emerald-50/70 border border-emerald-100 rounded-xl p-4 flex flex-col justify-between">
+              <div>
+                <div class="w-8 h-8 rounded-lg bg-brand-green text-white font-bold flex items-center justify-center mb-2">
+                  <i class="fa-solid fa-id-badge"></i>
+                </div>
+                <h5 class="font-bold text-gray-900 mb-1">அடையாள அட்டை & அங்கீகாரம்</h5>
+                <p class="text-gray-600 leading-relaxed">தேர்ந்தெடுக்கப்படும் செய்தியாளர்களுக்கு 'அறச்சீற்றம்' இதழின் அதிகாரப்பூர்வ ID Card மற்றும் பத்திரிகை அங்கீகாரம் வழங்கப்படும்.</p>
+              </div>
+            </div>
+
+            <div class="bg-emerald-50/70 border border-emerald-100 rounded-xl p-4 flex flex-col justify-between">
+              <div>
+                <div class="w-8 h-8 rounded-lg bg-brand-green text-white font-bold flex items-center justify-center mb-2">
+                  <i class="fa-solid fa-bolt"></i>
+                </div>
+                <h5 class="font-bold text-gray-900 mb-1">விரைவான செய்திப் பகிர்வு</h5>
+                <p class="text-gray-600 leading-relaxed">மாவட்டச் செய்திகள் மற்றும் மக்கள் பிரச்சினைகள் உடனடியாக எங்கள் டிஜிட்டல் தளங்களில் பிரசுரிக்கப்படும்.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Journalist Application Form -->
+        <div class="bg-gray-50 rounded-xl p-5 sm:p-6 border border-gray-200">
+          <h4 class="text-base font-black text-brand-dark mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-pen-nib text-brand-green"></i>
+            செய்தியாளர் விண்ணப்பப் படிவம் (Reporter Application Form)
+          </h4>
+
+          <form onsubmit="handleFormSubmit(event, 'செய்தியாளர் விண்ணப்பம் வெற்றிகரமாகப் பெறப்பட்டது! விரைவில் உங்களைத் தொடர்பு கொள்கிறோம்.')" class="space-y-4">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1">முழுப் பெயர் <span class="text-brand-accent">*</span></label>
+                <input type="text" required placeholder="உங்கள் பெயரை எழுதவும்" class="w-full text-xs p-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-green outline-none">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1">தொலைபேசி / வாட்ஸ்அப் எண் <span class="text-brand-accent">*</span></label>
+                <input type="tel" required placeholder="+91 96291 88853" class="w-full text-xs p-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-green outline-none">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1">மின்னஞ்சல் முகவரி <span class="text-brand-accent">*</span></label>
+                <input type="email" required placeholder="example@mail.com" class="w-full text-xs p-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-green outline-none">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1">மாவட்டம் / ஊர் <span class="text-brand-accent">*</span></label>
+                <input type="text" required placeholder="எ.கா: சென்னை / மதுரை" class="w-full text-xs p-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-green outline-none">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1">பணி அனுபவம் <span class="text-brand-accent">*</span></label>
+                <select required class="w-full text-xs p-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-green outline-none">
+                  <option value="">தேர்ந்தெடுக்கவும்...</option>
+                  <option value="freelancer">சுயாதீன செய்தியாளர் (Freelancer)</option>
+                  <option value="experienced">அனுபவமுள்ள நிருபர் (Experienced)</option>
+                  <option value="student">ஊடகவியல் மாணவர் (Journalism Student)</option>
+                  <option value="beginner">புதியவர் / ஆர்வம் கொண்டவர் (Beginner)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1">ஆர்வம் உள்ள பிரிவு (Domain) <span class="text-brand-accent">*</span></label>
+                <select required class="w-full text-xs p-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-green outline-none">
+                  <option value="">பிரிவைத் தேர்ந்தெடுக்கவும்...</option>
+                  <option value="politics">அரசியல் & கொள்கைகள்</option>
+                  <option value="society">சமூகம் & மக்கள் பிரச்சினைகள்</option>
+                  <option value="crime">குற்றப்பிரிவு & புலனாய்வு</option>
+                  <option value="culture">கலாச்சாரம் & இலக்கியம்</option>
+                  <option value="environment">சுற்றுச்சூழல் & இயற்கை</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">மாதிரிக் கட்டுரை / செய்தி இணைப்பு அல்லது சுருக்கம்</label>
+              <textarea rows="3" placeholder="முந்தைய செய்திக் கட்டுரைகளின் இணைப்பு (URL) அல்லது சிறு செய்திச் சுருக்கத்தை இங்கு உள்ளிடவும்..." class="w-full text-xs p-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-green outline-none"></textarea>
+            </div>
+
+            <div class="pt-2">
+              <button type="submit" class="w-full py-3 bg-brand-green text-white text-xs font-extrabold uppercase tracking-wider rounded-lg hover:bg-emerald-700 shadow-md transition-transform active:scale-98 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-paper-plane"></i> விண்ணப்பத்தைச் சமர்ப்பி
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-gray-50 px-6 py-4 flex justify-end border-t border-gray-100">
+        <button onclick="closeReporterModal()" class="px-5 py-2 bg-gray-200 text-gray-800 text-xs font-bold rounded-lg hover:bg-gray-300 transition-colors">
+          மூடுக
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 5. ARTICLE DETAIL READER MODAL -->
+  <div id="articleModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-gray-100">
+      <div class="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between z-10">
+        <span id="modalCategoryTag" class="text-xs font-black bg-emerald-100 text-brand-darkgreen px-3 py-1 rounded-full">
+          பிரிவு
+        </span>
+        <button onclick="closeArticleModal()" class="text-gray-500 hover:text-brand-dark text-xl">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="p-6 sm:p-8 space-y-4">
+        <h2 id="modalArticleTitle" class="text-2xl sm:text-3xl font-black text-brand-dark leading-snug"></h2>
+        <div class="flex items-center gap-3 text-xs text-gray-500 pb-2 border-b">
+          <span id="modalAuthor"><i class="fa-solid fa-user text-brand-green mr-1"></i> ஆசிரியர்</span>
+          <span>•</span>
+          <span id="modalReadTime"><i class="fa-solid fa-clock text-brand-green mr-1"></i> வாசிப்பு நேரம்</span>
+        </div>
+        <img id="modalArticleImage" src="" alt="Article Detail" class="w-full h-64 sm:h-80 object-cover rounded-xl shadow">
+        <div id="modalArticleBody" class="text-sm text-gray-700 leading-relaxed space-y-3">
+          <!-- Article text inserted here -->
+        </div>
+      </div>
+      <div class="bg-gray-50 px-6 py-4 flex justify-between items-center border-t">
+        <div class="flex items-center gap-3 text-xs text-gray-600">
+          <span class="font-bold">பகிர:</span>
+          <a href="https://www.facebook.com/aracheetram.media" target="_blank" class="hover:text-brand-green"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+          <a href="https://wa.me/919629188853" target="_blank" class="hover:text-brand-green"><i class="fa-brands fa-whatsapp text-sm"></i></a>
+        </div>
+        <button onclick="closeArticleModal()" class="px-4 py-2 bg-brand-green text-white text-xs font-bold rounded-lg shadow hover:bg-emerald-700">
+          மூடுக
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICATION TOAST -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-brand-dark text-white px-5 py-3 rounded-xl shadow-2xl border-l-4 border-brand-green text-xs font-bold flex items-center gap-3 transition-all duration-300 transform translate-y-20 opacity-0 z-50">
+    <i class="fa-solid fa-circle-check text-brand-green text-base"></i>
+    <span id="toastMessage">செயல்பாடு வெற்றிகரமாக முடிந்தது!</span>
+  </div>
+
+  <script>
+    /* ARTICLES SAMPLE DATABASE */
+    const articlesData = [
+      {
+        id: 1,
+        title: "சமூக மாற்றத்தில் எழும் அறச்சீற்றம்: ஒரு விரிவான ஆய்வு",
+        category: "சமூகம்",
+        subCategory: "ஆய்வுக் கட்டுரைகள்",
+        image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+        author: "ஆசிரியர் குழு",
+        readTime: "6 நிமிடம்",
+        desc: "சமூகத்தின் நீதிக்காகவும் உரிமைகளுக்காகவும் எழும் குரல்கள் எவ்வாறு புதிய வரலாற்று மாற்றங்களை உருவாக்குகின்றன? சமகால அரசியல் மற்றும் மக்களின் பங்களிப்பைப் பற்றிய ஆழமான அலசல்.",
+        content: `அரசியல் மற்றும் சமூக தளங்களில் மக்களுக்கான குரலாக அறச்சீற்றம் உருவெடுக்கிறது. நமது நாட்டில் நடைபெறும் ஒவ்வொரு முக்கியமான சமூக நிகழ்வுகளிலும், மக்களின் அடிப்படை உரிமைகளைப் பாதுகாப்பதில் இதழ்களின் பங்கு மகத்தானது.<br><br>வரலாறு நெடுகிலும் மக்களுக்கான குரலாக ஒலித்த அமைப்புகளும் ஊடகங்களும் சமுதாயப் புரட்சியை ஏற்படுத்தியுள்ளன. தற்கால நவீன டிஜிட்டல் சூழலில் இத்தகைய உரையாடல்கள் இன்னும் தீவிரமடைந்து வருகின்றன.`
+      },
+      {
+        id: 2,
+        title: "டிஜிட்டல் யுகத்தில் கருத்துச் சுதந்திரமும் ஊடக அறமும்",
+        category: "அரசியல்",
+        subCategory: "கொள்கை அலசல்",
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
+        author: "முனைவர் சுந்தரம்",
+        readTime: "4 நிமிடம்",
+        desc: "இணையதள ஊடகங்கள் மக்களின் குரலை எப்படி வெளிப்படுத்துகின்றன? நவீன டிஜிட்டல் உலகில் ஊடகங்களின் நடுநிலைத்தன்மை குறித்தான திறனாய்வு.",
+        content: `இன்றைய டிஜிட்டல் உலகில் தகவல்கள் வேகமாகவும் எளிதாகவும் பரவுகின்றன. எனினும் போலிச் செய்திகள் மற்றும் உண்மைக்குப் புறம்பான தகவல்களும் உடன் பரவுவது மிகப்பெரிய சவாலாக உருவெடுத்துள்ளது.<br><br>ஊடகங்கள் தங்களுக்கான அறத்தை நிலைநிறுத்துவதும், வாசகர்கள் சரியான ஆதாரபூர்வ தகவல்களை அணுகுவதும் இன்றைய தேவையாகும்.`
+      },
+      {
+        id: 3,
+        title: "நவீன சமூகமும் நாளைய கல்வி முறையும்",
+        category: "சமூகம்",
+        subCategory: "விழிப்புணர்வு",
+        image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+        author: "கவிதா பாரதி",
+        readTime: "5 நிமிடம்",
+        desc: "எதிர்காலத் தலைமுறைக்குத் தேவையான சிந்தனை முறைகள் மற்றும் புதிய தொழில்நுட்பக் கல்வி சார்ந்த முக்கிய பார்வைகள்.",
+        content: `கல்வி என்பது வெறும் ஏட்டுச் சுரைக்காய் அன்று; அது மனித சிந்தனையைச் செழுமைப்படுத்தும் மாபெரும் கருவி. புதிய தொழில்நுட்ப மாற்றங்களுக்கு ஏற்ப நம் பாடத்திட்டங்கள் மாற வேண்டும்.`
+      },
+      {
+        id: 4,
+        title: "இயற்கையைப் பாதுகாக்கும் அறம் மற்றும் பருவநிலை மாற்றம்",
+        category: "சமூகம்",
+        subCategory: "மக்கள் குரல்",
+        image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80",
+        author: "சுற்றுச்சூழல் குழு",
+        readTime: "3 நிமிடம்",
+        desc: "சுற்றுச்சூழல் மாறுபாடுகளும் நமது கடமைகளும். இயற்கை வளங்களைப் பேணிப் பாதுகாப்பதன் அவசியம் குறித்த விழிப்புணர்வு கட்டுரை.",
+        content: `பருவநிலை மாற்றம் என்பது உலகளாவிய அச்சுறுத்தலாக மாறியுள்ளது. மரங்களை நடுவது மற்றும் நீர்நிலைகளைப் பாதுகாப்பது மட்டுமே நமது அடுத்த தலைமுறைக்கு நாம் தரும் சிறந்த பரிசாகும்.`
+      },
+      {
+        id: 5,
+        title: "தமிழ் இலக்கியத்தில் அறக் கருத்துக்களின் தாக்கம்",
+        category: "கலாச்சாரம்",
+        subCategory: "இலக்கியம்",
+        image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=800&q=80",
+        author: "பேராசிரியர் இளங்கோவன்",
+        readTime: "7 நிமிடம்",
+        desc: "சங்க இலக்கியம் முதல் தற்கால படைப்புகள் வரை தமிழ் பண்பாட்டில் அறநெறிகள் வகிக்கும் முதன்மைப் பங்கு.",
+        content: `திருக்குறள், சிலப்பதிகாரம், புறநானூறு போன்ற காவியங்கள் தமிழர்களின் வாழ்வியல் வழிகாட்டியாகத் திகழ்கின்றன. நெறிமுறை சார்ந்த வாழ்க்கை முறையே தமிழரின் அடையாளம்.`
+      },
+      {
+        id: 6,
+        title: "சட்டமன்ற விவாதங்களும் மக்கள் பிரதிநிதித்துவமும்",
+        category: "அரசியல்",
+        subCategory: "சட்டமன்ற விவாதங்கள்",
+        image: "https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=800&q=80",
+        author: "அரசியல் நிருபர்",
+        readTime: "5 நிமிடம்",
+        desc: "மக்களாட்சியின் மாண்பைப் காக்கும் ஜனநாயக விவாதங்களின் முக்கியத்துவம் பற்றிய சிறப்புப் பதிவு.",
+        content: `சட்டமன்றங்களில் நிறைவேற்றப்படும் ஒவ்வொரு மசோதாவும் சாமானிய மக்களின் அன்றாட வாழ்க்கையைப் பாதிக்கும் சக்தி கொண்டது. ஆரோக்கியமான விவாதங்களே நல்லாட்சிக்கு வழிவகுக்கும்.`
+      },
+      {
+        id: 7,
+        title: "பாரம்பரிய கலைகளும் தற்கால இளைய தலைமுறையும்",
+        category: "கலாச்சாரம்",
+        subCategory: "கலை & பண்பாடு",
+        image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
+        author: "கலைவாணி",
+        readTime: "4 நிமிடம்",
+        desc: "கிராமிய மற்றும் பாரம்பரிய கலை வடிவங்களை அடுத்த கட்டத்திற்கு எடுத்துச் செல்லும் கலைஞர்களின் முயற்சிகள்.",
+        content: `கிராமியக் கலைகள் நமது அடையாளங்கள். கரகாட்டம், ஒயிலாட்டம், தெருக்கூத்து போன்ற பாரம்பரியக் கலைகளுக்கு மேடை அமைத்துக் கொடுப்பது நமது கடமையாகும்.`
+      },
+      {
+        id: 8,
+        title: "மக்களாட்சியில் பொதுமக்களின் பங்களிப்பும் கருத்துக்களமும்",
+        category: "கருத்துக்களம்",
+        subCategory: "கருத்துக்கள்",
+        image: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=800&q=80",
+        author: "வாசகர் கருத்து",
+        readTime: "3 நிமிடம்",
+        desc: "சமூகப் பிரச்சினைகளில் வாசகர்கள் தங்கள் கருத்துக்களைப் பதிவு செய்யும் சிறப்புக் கருத்துக்களம்.",
+        content: `மக்களாட்சி அமைப்பில் பொதுமக்கள் தங்களின் நியாயமான கருத்துக்களைத் தைரியமாக முன்வைக்க வேண்டும். மாற்றத்திற்கான முதல் படி உரையாடலே!`
+      }
+    ];
+
+    /* RENDER ARTICLES TO GRID */
+    function renderArticles(items) {
+      const grid = document.getElementById('articlesGrid');
+      const noResults = document.getElementById('noResults');
+      const articleCountBadge = document.getElementById('articleCountBadge');
+
+      grid.innerHTML = '';
+      articleCountBadge.innerText = `${items.length} பதிவுகள்`;
+
+      if (items.length === 0) {
+        noResults.classList.remove('hidden');
+        return;
+      } else {
+        noResults.classList.add('hidden');
+      }
+
+      items.forEach(article => {
+        const card = document.createElement('article');
+        card.className = "bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group";
+        
+        card.innerHTML = `
+          <div>
+            <div class="relative overflow-hidden h-48 bg-gray-100">
+              <img 
+                src="${article.image}" 
+                alt="${article.title}" 
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                onerror="this.src='https://placehold.co/600x400/00a859/ffffff?text=Ara+Cheetram';"
+              >
+              <span class="absolute top-3 left-3 bg-brand-green text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow">
+                ${article.category}
+              </span>
+            </div>
+            <div class="p-5">
+              <div class="text-[11px] font-semibold text-brand-green mb-1">${article.subCategory}</div>
+              <h3 onclick="openArticleModal(${article.id})" class="text-base font-bold text-brand-dark group-hover:text-brand-green cursor-pointer transition-colors line-clamp-2 leading-snug mb-2">
+                ${article.title}
+              </h3>
+              <p class="text-xs text-gray-600 line-clamp-3 leading-relaxed">
+                ${article.desc}
+              </p>
+            </div>
+          </div>
+
+          <div class="px-5 pb-5 pt-2 border-t border-gray-50 flex items-center justify-between text-xs text-gray-500">
+            <span class="font-medium"><i class="fa-solid fa-user text-[10px] text-brand-green mr-1"></i>${article.author}</span>
+            <button onclick="openArticleModal(${article.id})" class="font-bold text-brand-green hover:underline flex items-center gap-1">
+              படிக்க <i class="fa-solid fa-angle-right text-[10px]"></i>
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    /* CATEGORY & SUB-CATEGORY FILTERING */
+    function filterCategory(cat) {
+      const heroSection = document.getElementById('heroSection');
+      const titleHeading = document.getElementById('currentCategoryTitle');
+
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-green', 'text-white', 'active');
+        btn.classList.add('bg-white', 'text-gray-700');
+      });
+
+      if (cat === 'all') {
+        heroSection.classList.remove('hidden');
+        titleHeading.innerHTML = `<span class="w-2 h-6 bg-brand-green rounded-full inline-block"></span> முதன்மை செய்தி & சமீபத்திய பதிவுகள்`;
+        renderArticles(articlesData);
+      } else {
+        heroSection.classList.add('hidden');
+        titleHeading.innerHTML = `<span class="w-2 h-6 bg-brand-green rounded-full inline-block"></span> ${cat} கட்டுரைகள்`;
+        const filtered = articlesData.filter(a => a.category === cat);
+        renderArticles(filtered);
+      }
+    }
+
+    function filterSubCategory(subCat) {
+      const heroSection = document.getElementById('heroSection');
+      const titleHeading = document.getElementById('currentCategoryTitle');
+
+      heroSection.classList.add('hidden');
+      titleHeading.innerHTML = `<span class="w-2 h-6 bg-brand-green rounded-full inline-block"></span> ${subCat}`;
+      
+      const filtered = articlesData.filter(a => a.subCategory === subCat);
+      renderArticles(filtered);
+    }
+
+    function showSection(sec) {
+      filterCategory('all');
+    }
+
+    /* REALTIME SEARCH LOGIC */
+    function searchArticles() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const heroSection = document.getElementById('heroSection');
+
+      if (query === '') {
+        heroSection.classList.remove('hidden');
+        renderArticles(articlesData);
+        return;
+      }
+
+      heroSection.classList.add('hidden');
+      const searchResults = articlesData.filter(a => 
+        a.title.toLowerCase().includes(query) || 
+        a.desc.toLowerCase().includes(query) ||
+        a.category.toLowerCase().includes(query) ||
+        a.subCategory.toLowerCase().includes(query)
+      );
+
+      renderArticles(searchResults);
+    }
+
+    /* MOBILE MENU TOGGLE */
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const icon = document.getElementById('menuIcon');
+      menu.classList.toggle('hidden');
+
+      if (menu.classList.contains('hidden')) {
+        icon.className = 'fa-solid fa-bars text-xl';
+      } else {
+        icon.className = 'fa-solid fa-xmark text-xl';
+      }
+    }
+
+    /* ABOUT US MODAL & SUB TABS LOGIC */
+    function openAboutModal() {
+      document.getElementById('aboutModal').classList.remove('hidden');
+      switchAboutInnerTab('vision');
+    }
+
+    function openAboutTab(tabName) {
+      openAboutModal();
+      switchAboutInnerTab(tabName);
+    }
+
+    function closeAboutModal() {
+      document.getElementById('aboutModal').classList.add('hidden');
+    }
+
+    function switchAboutInnerTab(tabName) {
+      document.querySelectorAll('.about-inner-tab').forEach(btn => {
+        btn.classList.remove('border-brand-green', 'text-brand-green');
+        btn.classList.add('border-transparent', 'text-gray-600');
+      });
+      const activeBtn = document.getElementById(`aboutTab-${tabName}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('border-transparent', 'text-gray-600');
+        activeBtn.classList.add('border-brand-green', 'text-brand-green');
+      }
+
+      document.querySelectorAll('.about-content-panel').forEach(panel => {
+        panel.classList.add('hidden');
+      });
+      const activePanel = document.getElementById(`aboutContent-${tabName}`);
+      if (activePanel) {
+        activePanel.classList.remove('hidden');
+      }
+    }
+
+    /* CONTACT & SUBSCRIBE MODALS */
+    function openContactModal() {
+      document.getElementById('contactModal').classList.remove('hidden');
+    }
+    function closeContactModal() {
+      document.getElementById('contactModal').classList.add('hidden');
+    }
+    function openContactSub(sub) {
+      openContactModal();
+    }
+
+    function openSubscribeModal() {
+      document.getElementById('subscribeModal').classList.remove('hidden');
+    }
+    function closeSubscribeModal() {
+      document.getElementById('subscribeModal').classList.add('hidden');
+    }
+
+    /* REPORTER MODAL (NEW) */
+    function openReporterModal() {
+      document.getElementById('reporterModal').classList.remove('hidden');
+    }
+    function closeReporterModal() {
+      document.getElementById('reporterModal').classList.add('hidden');
+    }
+
+    /* ARTICLE DETAIL READER MODAL */
+    function openArticleModal(id) {
+      const article = articlesData.find(a => a.id === id);
+      if (!article) return;
+
+      document.getElementById('modalCategoryTag').innerText = `${article.category} • ${article.subCategory}`;
+      document.getElementById('modalArticleTitle').innerText = article.title;
+      document.getElementById('modalAuthor').innerHTML = `<i class="fa-solid fa-user text-brand-green mr-1"></i> ${article.author}`;
+      document.getElementById('modalReadTime').innerHTML = `<i class="fa-solid fa-clock text-brand-green mr-1"></i> ${article.readTime}`;
+      document.getElementById('modalArticleImage').src = article.image;
+      document.getElementById('modalArticleBody').innerHTML = `<p class="font-medium text-gray-800 text-base leading-relaxed mb-4">${article.desc}</p><hr class="my-4"><p>${article.content}</p>`;
+
+      document.getElementById('articleModal').classList.remove('hidden');
+    }
+
+    function closeArticleModal() {
+      document.getElementById('articleModal').classList.add('hidden');
+    }
+
+    /* TOAST NOTIFICATION */
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMessage').innerText = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3500);
+    }
+
+    function handleFormSubmit(e, message) {
+      e.preventDefault();
+      closeContactModal();
+      closeSubscribeModal();
+      closeReporterModal();
+      showToast(message);
+    }
+
+    /* INITIALIZE ON WINDOW LOAD */
+    window.onload = function () {
+      renderArticles(articlesData);
+    };
+  </script>
+</body>
+</html>
